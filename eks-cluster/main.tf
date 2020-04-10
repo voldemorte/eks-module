@@ -46,7 +46,7 @@ resource "aws_iam_policy" "eks_worker_assume_role" {
 ###############################
 
 module "eks" {
-  source                               = "github.com/terraform-aws-modules/terraform-aws-eks?ref=v9.0.0"
+  source                               = "github.com/terraform-aws-modules/terraform-aws-eks?ref=v11.0.0"
   cluster_name                         = var.cluster_name
   cluster_version                      = var.k8s_version
   vpc_id                               = var.vpc_id
