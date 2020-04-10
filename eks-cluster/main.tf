@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "eks_worker_assume_role" {
 }
 
 resource "aws_iam_policy" "eks_worker_assume_role" {
-  name        = "EKSWorkerAssumeRole"
+  name        = var.workers_assume_role_name
   description = "Allow EKS workers to assume other roles"
   path        = var.iam_path
   policy      = data.aws_iam_policy_document.eks_worker_assume_role.json
@@ -58,7 +58,6 @@ module "eks" {
   cluster_iam_role_name = var.cluster_iam_role_name
   workers_role_name     = var.workers_role_name
 
-  # Disable aws_auth_configmap
   manage_aws_auth = true
 
   # Enable IAM Role for Service Account
@@ -76,11 +75,15 @@ module "eks" {
   # Cluster logging
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
+  map_accounts = var.map_accounts
+  map_roles    = var.map_roles
+  map_users    = var.map_users
+
 }
 
 ## Ref - https://github.com/hashicorp/terraform/issues/1178#issuecomment-449158607
-resource "null_resource" "dependency_setter" {
-  depends_on = [
-    module.eks.cluster_endpoint
-  ]
-}
+#resource "null_resource" "dependency_setter" {
+#  depends_on = [
+#    module.eks.cluster_endpoint
+#  ]
+#}
