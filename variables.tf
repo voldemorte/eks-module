@@ -6,7 +6,6 @@ variable "cluster_name" {
 variable "cluster_endpoint_public_access_cidrs" {
   description = "List of CIDR blocks which can access the Amazon EKS public API server endpoint."
   type        = list(string)
-  default     = ["0.0.0.0/0"]
 }
 
 variable "cluster_iam_role_name" {
@@ -67,6 +66,7 @@ variable "workers_assume_role_name" {
   type    = string
   default = "EKSWorkerAssumeRole"
 }
+
 
 variable "worker_groups" {
   description = "A list of Autoscaling groups with following attributes"
