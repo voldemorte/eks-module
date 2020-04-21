@@ -66,6 +66,7 @@ module "eks" {
   cluster_version                      = var.k8s_version
   vpc_id                               = var.vpc_id
   subnets                              = var.vpc_subnets
+  cluster_endpoint_private_access      = true
   cluster_endpoint_public_access_cidrs = var.cluster_endpoint_public_access_cidrs
 
   # IAM Roles
